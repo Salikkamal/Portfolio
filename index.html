@@ -1,167 +1,417 @@
-<!-- Created on 3th december of 2022
-
-@author: Kamaluddin Salik -->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <title>Kamaluddin Salik - Home</title>
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" href="Images/icon.png" type="image/x-icon" />
+  <title>Kamal — Professional Portfolio</title>
 
-  <!-- stylesheet css -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/font-awesome.min.css" />
-  <link rel="stylesheet" href="css/nivo-lightbox.css" />
-  <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
-  <link rel="stylesheet" href="css/templatemo-style.css" />
-  <!-- google web font css -->
-  <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for icons (skills, social) -->
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <!-- If you prefer not to use Font Awesome, replace icons with SVGs in the HTML. -->
+
+  <style>
+    /* ==========================
+       Variables & Base styles
+       ========================== */
+    :root{
+      --bg: #0f1724; /* deep navy */
+      --card: #0b1320;
+      --muted: #9aa4b2;
+      --accent: #3b82f6; /* bright blue */
+      --accent-2: #06b6d4; /* teal accent */
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --max-width: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,var(--bg) 0%, #071027 100%);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    .container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+    /* ==========================
+       Header / Navigation
+       ========================== */
+    header{
+      position:sticky;top:12px;z-index:40;backdrop-filter: blur(6px);
+      margin-bottom:24px;display:flex;align-items:center;justify-content:center;
+    }
+    .nav-wrap{width:100%;max-width:var(--max-width);display:flex;align-items:center;justify-content:space-between;padding:8px 16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-family:'Merriweather';
+    }
+    nav ul{display:flex;gap:10px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a.active, nav a:hover{color:white;background:var(--glass)}
+
+    /* Mobile nav (hamburger) */
+    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:20px}
+
+    /* ==========================
+       Hero / Home
+       ========================== */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0
+    }
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:28px;border-radius:var(--radius);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .intro h1{font-family:'Merriweather',serif;font-size:34px;margin:0 0 6px}
+    .intro p.lead{color:var(--muted);margin:10px 0 20px}
+    .tagline{display:inline-block;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));font-weight:600;color:white}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:10px;font-weight:600;border:0;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(11,19,30,0.6)}
+
+    .hero-photo{display:flex;align-items:center;justify-content:center}
+    .photo-frame{width:380px;height:380px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04)}
+    .photo-frame img{width:100%;height:100%;object-fit:cover}
+
+    /* ==========================
+       Sections (Skills, Linguistics, Education, Volunteer)
+       ========================== */
+    section{padding:36px 0}
+    .section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .section-title h2{margin:0;font-size:20px}
+    .grid{display:grid;gap:18px}
+
+    /* Technical skills */
+    .skills-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .skill-card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .skill-icon{font-size:22px;margin-right:12px}
+    .skill-name{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .skill-bar{height:10px;background:rgba(255,255,255,0.05);border-radius:999px;overflow:hidden}
+    .skill-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left;transition:width .9s cubic-bezier(.22,.9,.3,1)}
+
+    /* Linguistic skills */
+    .lang-list{display:flex;flex-direction:column;gap:12px}
+    .lang-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .lang-left{display:flex;align-items:center;gap:12px}
+    .flag{width:46px;height:32px;border-radius:6px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .lang-proficiency{color:var(--muted);font-size:14px}
+
+    /* Education timeline */
+    .timeline{position:relative;padding-left:18px}
+    .timeline:before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent-2),var(--accent));border-radius:4px}
+    .timeline-item{position:relative;padding:14px 14px;margin-bottom:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .timeline-item:before{content:'';position:absolute;left:-21px;top:18px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+    .timeline h3{margin:0;font-size:16px}
+    .timeline span.date{color:var(--muted);font-size:13px}
+
+    /* Volunteer cards */
+    .vol-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .vol-card{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.03)}
+    .vol-card h4{margin:0 0 8px}
+    .vol-card p{color:var(--muted);font-size:14px}
+
+    /* Contact */
+    .contact-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03)}
+    .contact-row{display:flex;gap:12px;flex-wrap:wrap}
+    .socials a{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--glass);color:var(--muted);margin-right:8px}
+
+    /* Reveal animations */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Footer */
+    footer{padding:28px 0;color:var(--muted);font-size:14px;text-align:center}
+
+    /* Responsive tweaks */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .photo-frame{width:320px;height:320px;margin:0 auto}
+    }
+    @media (max-width:640px){
+      nav ul{display:none}
+      .hamburger{display:block}
+      .photo-frame{width:260px;height:260px}
+      .brand .logo{width:42px;height:42px}
+      .intro h1{font-size:26px}
+    }
+
+  </style>
 </head>
-
 <body>
-  <!-- navigation -->
 
-  <div class="container">
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="navbar-header">
-        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-        </button>
-        <a href="index.html" class="navbar-brand"><img src="images/logo.png" class="img-responsive" alt="logo" /></a>
+  <header>
+    <div class="nav-wrap container">
+      <div class="brand">
+        <div class="logo">K</div>
+        <div>
+          <div style="font-weight:700">Kamal</div>
+          <div style="font-size:12px;color:var(--muted)">Software & Linguistics</div>
+        </div>
       </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="index.html" class="active">HOME</a></li>
-          
-          <li><a href="about.html">ABOUT ME</a></li>
-          <li><a href="contact.html">CONTACT</a></li>
+
+      <nav>
+        <ul>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#skills" class="nav-link">Technical</a></li>
+          <li><a href="#linguistics" class="nav-link">Linguistic</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#volunteer" class="nav-link">Volunteer</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-      </div>
-    </div>
-  </div>
+      </nav>
 
-  <!-- home section -->
-  <div id="home">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 col-sm-3"></div>
-        <div class="col-md-7 col-sm-9">
-          <h3>Welcome to</h3>
-          <h1>my portfolio page</h1>
-        </div>
-      </div>
+      <button class="hamburger" aria-label="menu">
+        <i class="fa fa-bars"></i>
+      </button>
     </div>
-  </div>
+  </header>
 
-  <!-- divider section -->
-  <div class="divider">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-sm-9">
-          <div class="divider-wrapper divider-one">
-            <a href="webdevrepo.html" style="color: #ffffff; text-decoration: none">
-              <i class="fa fa-sitemap"></i>
-              <h2>Web Development</h2>
-              <p>
-                View all the Web Development related Projects and
-                Repositories.
-              </p>
-            </a>
-          </div>
+  <main class="container">
+
+    <!-- HOME / HERO -->
+    <section id="home" class="hero">
+      <div class="hero-card intro reveal">
+        <span class="tagline">Result of dedication — lifelong learner</span>
+        <h1>Hello, I’m Kamal <span style="color:var(--accent-2)">—</span></h1>
+        <p class="lead">Computer scientist & linguist with ~3 years building mobile apps, training low-resource language models, and delivering localization for major platforms. I bridge code and language to make products accessible.</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contact">Hire / Contact</a>
+          <a class="btn btn-ghost" href="#education">View Education</a>
+          <a class="btn btn-ghost" href="#skills">My Skills</a>
         </div>
-        <div class="col-md-4 col-sm-9">
-          <div class="divider-wrapper divider-two">
-            <a href="ethhackrepo.html" style="color: #ffffff; text-decoration: none">
-              <i class="fa fa-laptop"></i>
-              <h2>Networking</h2>
-              <p>
-                View all the Ethical Hacking related Projects and Repositories.
-              </p>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-9">
-          <div class="divider-wrapper divider-three">
-            <a href="appdevrrepo.html" style="color: #ffffff; text-decoration: none">
-              <i class="fa fa-mobile"></i>
-              <h2>App Development</h2>
-              <p>
-                View all the App Development related Projects and Repositories.
-              </p>
-            </a>
-          </div>
+
+        <div style="margin-top:18px;color:var(--muted);font-size:14px">
+          <strong>Availability:</strong> Open to freelance & part-time roles — remote friendly.
         </div>
       </div>
-    </div>
-  </div>
+
+      <div class="hero-photo reveal">
+        <div class="photo-frame">
+          <!-- Replace the src with your portrait image. Keep it square for best results. -->
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcdef" alt="portrait">
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS -->
+    <section id="skills">
+      <div class="section-title">
+        <h2>Technical Skills</h2>
+      </div>
+
+      <div class="grid skills-grid">
+        <!-- Skill card example, copy/adjust as needed -->
+        <div class="skill-card reveal">
+          <div class="skill-name"><div style="display:flex;align-items:center"><i class="skill-icon fa fa-code"></i><strong>Java / Kotlin</strong></div><div>80%</div></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-name"><div style="display:flex;align-items:center"><i class="skill-icon fa fa-mobile"></i><strong>Mobile Development</strong></div><div>75%</div></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-name"><div style="display:flex;align-items:center"><i class="skill-icon fa fa-brain"></i><strong>ML & NLP</strong></div><div>70%</div></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-name"><div style="display:flex;align-items:center"><i class="skill-icon fa fa-language"></i><strong>Localization</strong></div><div>85%</div></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LINGUISTIC SKILLS -->
+    <section id="linguistics">
+      <div class="section-title"><h2>Linguistic Skills</h2></div>
+      <div class="lang-list">
+        <div class="lang-item reveal">
+          <div class="lang-left"><div class="flag">FA</div><div>
+            <strong>Farsi (Persian)</strong><div class="lang-proficiency">Native — Translation, Proofreading, Localization</div>
+          </div></div>
+        </div>
+
+        <div class="lang-item reveal">
+          <div class="lang-left"><div class="flag">DR</div><div>
+            <strong>Dari</strong><div class="lang-proficiency">Fluent — Dialectal adaptation, subtitling</div>
+          </div></div>
+        </div>
+
+        <div class="lang-item reveal">
+          <div class="lang-left"><div class="flag">HZ</div><div>
+            <strong>Hazaragi</strong><div class="lang-proficiency">Conversational — Data collection & annotation</div>
+          </div></div>
+        </div>
+
+        <div class="lang-item reveal">
+          <div class="lang-left"><div class="flag">EN</div><div>
+            <strong>English</strong><div class="lang-proficiency">Professional — Technical writing, communication</div>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-title"><h2>Education</h2></div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <h3>B.Sc. in Computer Science</h3>
+          <div class="date">2019 — 2023</div>
+          <p style="color:var(--muted);margin-top:8px">University name — Focus: Mobile development, algorithms, and computational linguistics.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Professional Courses & Certificates</h3>
+          <div class="date">2021 — 2024</div>
+          <p style="color:var(--muted);margin-top:8px">Courses in NLP, localization engineering, and mobile UX — Google, Udemy, Coursera (examples).</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VOLUNTEER -->
+    <section id="volunteer">
+      <div class="section-title"><h2>Volunteer Experience</h2></div>
+
+      <div class="grid vol-grid">
+        <div class="vol-card reveal">
+          <h4>Community Translator — Open Localization Project</h4>
+          <div class="date">2022 — Present</div>
+          <p>Led translations of app UI and helped coordinate a small team of translators for low-resource languages.</p>
+        </div>
+
+        <div class="vol-card reveal">
+          <h4>Language Data Annotator — Local NGO</h4>
+          <div class="date">2020 — 2022</div>
+          <p>Collected and annotated speech data for Hazaragi and Dari to support research and language tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title"><h2>Contact</h2></div>
+
+      <div class="contact-card reveal">
+        <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <p style="color:var(--muted)">Interested in working together? Fill the form or use the links to reach me.</p>
+
+            <div class="socials" style="margin-top:10px">
+              <a href="mailto:kamalsalik1999@gmail.com" title="Email"><i class="fa fa-envelope"></i> Email</a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><i class="fa fa-linkedin"></i> LinkedIn</a>
+              <a href="https://github.com/" target="_blank" rel="noopener"><i class="fa fa-github"></i> GitHub</a>
+            </div>
+          </div>
+
+          <form style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px" onsubmit="handleContact(event)">
+            <input name="name" placeholder="Your name" required style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+            <input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+            <textarea name="message" placeholder="Message" required rows="4" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" type="submit">Send Message</button>
+              <a class="btn btn-ghost" href="mailto:kamalsalik1999@gmail.com">Email me</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    <div class="container">
-      <div class="row">
-
-        <div class="col-md-6 col-sm-4">
-          <img src="images/logo.png" class="img-responsive" alt="logo"><br>
-          <p>I'm Kamaluddin Salik a Stack Developer, Flutter Developer, Competitive Programmer . Here's my
-          </p>
-          <a rel="nofollow" href="https://www.linkedin.com/in/avinashkranjan/" target="_parent">Linkedin
-            Profile</a>
-          <br><br>
-          <p><i class="fa fa-phone"></i> +93 708230885</p>
-          <p><i class="fa fa-envelope-o"></i> kamal.salik2016@gmail.com</p>
-          
-        </div>
-
-        <div class="col-md-3 col-sm-4">
-          <h3>Useful Links</h3>
-          
-          
-          <p><a href="about.html">About Me</a></p>
-          <p><a href="contact.html">Contact</a></p>
-          
-        
-    </div>
+    <div class="container">© <span id="year"></span> Kamal — Built with care • <span style="color:var(--muted)">Designed for recruiters & clients</span></div>
   </footer>
 
-  <!-- copyright section -->
-  <div class="copyright">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <p>Copyright © 2022 Kamaluddin Salik</p>
-        </div>
-        <div class="col-md-6 col-sm-6">
-          <ul class="social-icons">
-            <li><a href="https://www.facebook.com/avinashranjan.1020" class="fa fa-facebook"
-                target="_blank"></a></li>
-            <li><a href="https://www.twitter.com/iavinashranjan" class="fa fa-twitter" target="_blank"></a>
-            </li>
-            <li><a href="https://www.instagram.com/avinashkranjan7" class="fa fa-instagram"
-                target="_blank"></a></li>
-            <li><a href="https://www.linkedin.com/in/avinashkranjan" class="fa fa-linkedin"
-                target="_blank"></a></li>
-            <li><a href="https://in.pinterest.com/avinashranjan1020" class="fa fa-pinterest"
-                target="_blank"></a></li>
-            <li><a href="mailto: avinashranjan554@gmail.com" class="fa fa-envelope-o" target="_blank"></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    // ====== Small JS for interactions (no frameworks) ======
+    document.getElementById('year').innerText = new Date().getFullYear();
 
-  <!-- javascript js -->
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/nivo-lightbox.min.js"></script>
-  <script src="js/custom.js"></script>
+    // Smoothly toggle 'active' on nav links while scrolling
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+
+    function onScroll(){
+      const top = window.scrollY + 120; // offset for sticky nav
+      sections.forEach((sec, i) => {
+        if(!sec) return;
+        if(top >= sec.offsetTop && top < sec.offsetTop + sec.offsetHeight){
+          navLinks.forEach(n=>n.classList.remove('active'));
+          navLinks[i].classList.add('active');
+        }
+      })
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // simple reveal on scroll using IntersectionObserver
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      })
+    },{threshold:0.12});
+    reveals.forEach(r => io.observe(r));
+
+    // Animate skill fill widths when visible (initial state set in HTML inline style)
+    // (Already set widths; the CSS transition will animate when class visible added)
+
+    // Simple contact form handler; replace with working backend or Formspree
+    function handleContact(e){
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const name = data.get('name');
+      const email = data.get('email');
+      const message = data.get('message');
+
+      // This example opens the user's email client. Replace with fetch to your API to send from server.
+      const mailto = `mailto:kamalsalik1999@gmail.com?subject=${encodeURIComponent('Portfolio contact from ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' - ' + email)}`;
+      window.location.href = mailto;
+    }
+
+    // Mobile nav behaviour (toggle)
+    const hamburger = document.querySelector('.hamburger');
+    hamburger.addEventListener('click', () => {
+      const nav = document.querySelector('nav ul');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.background = 'rgba(255,255,255,0.02)';
+      nav.style.padding = '12px';
+      nav.style.position = 'absolute';
+      nav.style.right = '16px';
+      nav.style.top = '70px';
+      nav.style.borderRadius = '12px';
+    });
+
+    // Accessibility: close mobile nav when link clicked
+    document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click', ()=>{
+      if(window.innerWidth < 640){
+        document.querySelector('nav ul').style.display = 'none';
+      }
+    }));
+
+  </script>
+
 </body>
-
 </html>
+
